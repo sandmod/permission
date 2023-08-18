@@ -1,0 +1,32 @@
+{
+  "Title": "Sandmod <<template_name_upper>>",
+  "Type": "library",
+  "Org": "sandmod",
+  "Ident": "<<template_name_lower>><<template_todo>> // Add _lib if needed",
+  "Tags": "sandmod <<template_name_lower>>",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "Resources": null,
+  "MenuResources": null,
+  "HasCode": true,
+  "CodePath": "code",
+  "PackageReferences": [
+    "local.base"
+  ],
+  "EditorReferences": null,
+  "Metadata": {
+    "ProjectTemplate": null,
+    "CsProjName": "Sandmod <<template_name_upper>>",
+    "Compiler": {
+      "RootNamespace": "Sandmod.<<template_name_upper>>",
+      "DefineConstants": "SANDBOX;ADDON;DEBUG",
+      "NoWarn": "1701;1702;1591;",
+      "References": []
+    },
+    "Summary": "Sandmod <<template_name_upper>> library",
+    "Description": "",
+    "Public": true,
+    "ReplaceTags": "sandmod <<template_name_lower>>"
+  }
+}
