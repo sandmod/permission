@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="s&mod health" height="300px" src="https://avatars.githubusercontent.com/u/142268940">
+  <img alt="Sandmod Permission" height="300px" src="https://files.facepunch.com/sbox/asset/sandmod.permission/logo.9529a05a.png">
 </div>
 
 ![Discord](https://img.shields.io/discord/1018463122144636980?style=for-the-badge&label=Discord&color=3273EB)
@@ -8,7 +8,7 @@
 
 > Easily extendable permission system
 
-Sandmod Health is an permission system based on components.  
+Sandmod Permission is an permission system based on components.  
 This makes the system extendable by everyone.
 
 You have the freedom to choose how you want to provide and evaluate the permission.  
