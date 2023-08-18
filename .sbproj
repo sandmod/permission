@@ -1,9 +1,9 @@
 {
-  "Title": "Sandmod <<template_name_upper>>",
+  "Title": "Sandmod Permission",
   "Type": "library",
   "Org": "sandmod",
-  "Ident": "<<template_name_lower>><<template_todo>> // Add _lib if needed",
-  "Tags": "sandmod <<template_name_lower>>",
+  "Ident": "permission",
+  "Tags": "sandmod permission",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -17,16 +17,16 @@
   "EditorReferences": null,
   "Metadata": {
     "ProjectTemplate": null,
-    "CsProjName": "Sandmod <<template_name_upper>>",
+    "CsProjName": "Sandmod Permission",
     "Compiler": {
-      "RootNamespace": "Sandmod.<<template_name_upper>>",
+      "RootNamespace": "Sandmod.Permission",
       "DefineConstants": "SANDBOX;ADDON;DEBUG",
       "NoWarn": "1701;1702;1591;",
       "References": []
     },
-    "Summary": "Sandmod <<template_name_upper>> library",
+    "Summary": "Sandmod Permission library",
     "Description": "",
     "Public": true,
-    "ReplaceTags": "sandmod <<template_name_lower>>"
+    "ReplaceTags": "sandmod permission"
   }
 }

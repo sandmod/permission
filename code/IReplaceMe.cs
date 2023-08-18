@@ -1,4 +1,4 @@
-﻿namespace Sandmod.<<template_name_upper>>;
+﻿namespace Sandmod.Permission;
 
 public interface IReplaceMe
 {
