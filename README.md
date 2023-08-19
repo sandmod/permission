@@ -22,12 +22,13 @@ Here are some possible examples how you could provide permissions:
 
 ## The library
 
-The main part of the library is the [PermissionComponent](code/Components/PermissionComponent.cs).
+The main part of the library is the [IPermissionComponent](code/Components/IPermissionComponent.cs).
 
-The [PermissionComponent](code/Components/PermissionComponent.cs) represents partial permissions of a client.
+The [IPermissionComponent](code/Components/IPermissionComponent.cs) represents partial permissions of a client.
 > It's partial because a client can have multiple components on them and they are all taken into account when checking if the client has a specific permission.
 
-The [PermissionComponent](code/Components/PermissionComponent.cs) is easily extendable and allows you to create your own logic for providing and checking your own permissions.
+The [IPermissionComponent](code/Components/IPermissionComponent.cs) is easily extendable and allows you to create your own logic for providing and checking your own permissions.  
+Check out the [BasicPermissionComponent](code/Components/BasicPermissionComponent.cs) for an basic example.
 
 Use the `bool IClient.HasPermission(string permission)` method to check if the client has the passed permission.
 
@@ -37,4 +38,4 @@ To add this library to your s&box editor, simply clone the [Sandmod Permission](
 
 ## Examples
 
-// TODO
+Check out the [BasicPermissionComponent](code/Components/BasicPermissionComponent.cs) for an basic example.
