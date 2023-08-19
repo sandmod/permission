@@ -28,7 +28,7 @@ The [IPermissionComponent](code/Components/IPermissionComponent.cs) represents p
 > It's partial because a client can have multiple components on them and they are all taken into account when checking if the client has a specific permission.
 
 The [IPermissionComponent](code/Components/IPermissionComponent.cs) is easily extendable and allows you to create your own logic for providing and checking your own permissions.  
-Check out the [BasicPermissionComponent](code/Components/BasicPermissionComponent.cs) for an basic example.
+Check out the [PermissionComponent](code/Components/PermissionComponent.cs) for an basic example.
 
 Use the `bool IClient.HasPermission(string permission)` method to check if the client has the passed permission.
 
@@ -38,4 +38,4 @@ To add this library to your s&box editor, simply clone the [Sandmod Permission](
 
 ## Examples
 
-Check out the [BasicPermissionComponent](code/Components/BasicPermissionComponent.cs) for an basic example.
+Check out the [PermissionComponent](code/Components/PermissionComponent.cs) for an basic example.

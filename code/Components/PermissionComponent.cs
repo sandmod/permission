@@ -12,7 +12,7 @@ namespace Sandmod.Permission;
 /// <br/><br/>
 /// <inheritdoc cref="IPermissionComponent"/>
 /// </summary>
-public abstract partial class BasicPermissionComponent : EntityComponent, IPermissionComponent
+public abstract partial class PermissionComponent : EntityComponent, IPermissionComponent
 {
     /// <summary>
     /// Default property for the <see cref="IClient"/>'s permissions.
