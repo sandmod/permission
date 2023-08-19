@@ -23,7 +23,7 @@ public abstract partial class PermissionComponent : EntityComponent, IEnumerable
     /// <br/>
     /// It's networked to allow for replication on the client for e.g. UI checks.
     /// </summary>
-    [Net] protected List<string> InternalPermissions { get; set; } = new ();
+    [Net, Local] protected List<string> InternalPermissions { get; set; } = new ();
     
     /// <summary>
     /// <see cref="IClient"/>'s permissions of this <see cref="PermissionComponent"/>.
