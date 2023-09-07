@@ -53,28 +53,28 @@ public static class Permission
     }
     
     /// <summary>
-    /// Checks if the <b><paramref name="grantPermission"/></b> includes the <b><paramref name="checkPermission"/></b>.<br/>
+    /// Checks if the <b><paramref name="permission"/></b> includes the <b><paramref name="checkPermission"/></b>.<br/>
     /// This check is valid for normal and inverted permissions.
     /// </summary>
-    /// <param name="grantPermission">Granted permission e.g. on a client</param>
-    /// <param name="checkPermission">Permission to check if it's included in the <b><paramref name="grantPermission"/></b></param>
-    /// <returns>If the <b><paramref name="grantPermission"/></b> includes the <b><paramref name="checkPermission"/></b></returns>
-    public static bool Includes(string grantPermission, string checkPermission)
+    /// <param name="permission">Permission e.g. granted on a client</param>
+    /// <param name="checkPermission">Permission to check if it's included in the <b><paramref name="permission"/></b></param>
+    /// <returns>If the <b><paramref name="permission"/></b> includes the <b><paramref name="checkPermission"/></b></returns>
+    public static bool Includes(string permission, string checkPermission)
     {
         var inverted = false;
-        if (grantPermission.StartsWith(Inverter))
+        if (permission.StartsWith(Inverter))
         {
             // Remove the inverter at the start to allow for checking matches
-            grantPermission = grantPermission[1..];
+            permission = permission[1..];
             inverted = true;
         }
 
         // Grant permission matches exactly with the check permission
-        if (grantPermission == checkPermission) return true;
+        if (permission == checkPermission) return true;
         
         // Check parts split by the Permission.Separator
         var checkParts = checkPermission.Split(Separator);
-        var grantParts = grantPermission.Split(Separator);
+        var grantParts = permission.Split(Separator);
         for (var i = 0; i < checkParts.Length; i++)
         {
             // Check permission parts are longer
@@ -102,15 +102,48 @@ public static class Permission
     }
 
     /// <summary>
-    /// Checks if the <b><paramref name="grantPermissions"/></b> allow the <b><paramref name="checkPermission"/></b>.<br/>
+    /// Checks if the <b><paramref name="permissions"/></b> allow the <b><paramref name="checkPermission"/></b>.<br/>
     /// Inverted permissions act as an exclude and therefore have higher priority.
     /// </summary>
-    /// <param name="grantPermissions">Granted permissions e.g. on a client</param>
-    /// <param name="checkPermission">Permission to check if it's allowed by the <b><paramref name="grantPermissions"/></b></param>
-    /// <returns>If the <b><paramref name="grantPermissions"/></b> allow the <b><paramref name="checkPermission"/></b></returns>
-    public static bool Allows(IReadOnlyCollection<string> grantPermissions, string checkPermission)
+    /// <param name="permissions">Permissions e.g. granted on a client</param>
+    /// <param name="checkPermission">Permission to check if it's granted by the <b><paramref name="permissions"/></b></param>
+    /// <returns>If the <b><paramref name="permissions"/></b> grant the <b><paramref name="checkPermission"/></b></returns>
+    public static bool Grants(IReadOnlyCollection<string> permissions, string checkPermission)
     {
-        var excluded = grantPermissions.Where(IsInverted).Any(p => Includes(p, checkPermission));
-        return !excluded && grantPermissions.Where(p => !IsInverted(p)).Any(p => Includes(p, checkPermission));
+        var excluded = permissions.Where(IsInverted).Any(p => Includes(p, checkPermission));
+        return !excluded && permissions.Where(p => !IsInverted(p)).Any(p => Includes(p, checkPermission));
+    }
+
+    /// <summary>
+    /// Checks if the permission check <b><paramref name="results"/></b> allow the permission or not.
+    /// <br/>
+    /// </summary>
+    /// <param name="results">Permission check results</param>
+    /// <returns>
+    /// <b>False</b> if there is an explicit <see cref="Result.Deny"/> or no <see cref="Result.Grant"/>.<br/>
+    /// <b>True</b> if there is an <see cref="Result.Grant"/> and no explicit <see cref="Result.Deny"/>.
+    /// </returns>
+    public static bool Allows(IReadOnlyCollection<Result> results)
+    {
+        return results.All(result => result != Result.Deny) && results.Any(result => result == Result.Grant);
+    }
+
+    /// <summary>
+    /// Permission check result.
+    /// </summary>
+    public enum Result
+    {
+        /// <summary>
+        /// Permission is not granted.
+        /// </summary>
+        NoGrant,
+        /// <summary>
+        /// Permission is granted.
+        /// </summary>
+        Grant,
+        /// <summary>
+        /// Permission is explicitly denied.
+        /// </summary>
+        Deny
     }
 }

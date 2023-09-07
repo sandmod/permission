@@ -12,7 +12,8 @@
   "HasCode": true,
   "CodePath": "code",
   "PackageReferences": [
-    "local.base"
+    "local.base",
+    "sandmod.core"
   ],
   "EditorReferences": null,
   "Metadata": {
