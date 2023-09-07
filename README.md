@@ -9,7 +9,7 @@
 > An abstract and shared permission framework
 
 > Sandmod provides all kinds of frameworks for developers.  
-> This way we can all have on a shared experience where addon incompatibility is no issue anymore.
+> This way we can all have a shared experience where addon incompatibility is no issue anymore.
 
 Sandmod Permission is an abstract permission framework based on providers and components.
 
