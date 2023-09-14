@@ -4,10 +4,10 @@ namespace Sandmod.Permission.Target;
 
 /// <summary>
 /// Implementable permission target.<br/>
-/// Used in permission checks as target for the permissions.
+/// Used in permission checks as target for the permission.
 /// <br/><br/>
 /// E.g. if you want to check if someone is allowed to kick an <see cref="IClient"/>,
-/// the "kick" permission would be checked the the <see cref="IClient"/> as <see cref="IPermissionTarget"/>.
+/// the "kick" permission would be checked for the <see cref="IClient"/> as <see cref="IPermissionTarget"/>.
 /// </summary>
 public interface IPermissionTarget
 {
