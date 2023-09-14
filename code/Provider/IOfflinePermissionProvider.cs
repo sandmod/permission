@@ -1,4 +1,5 @@
 ﻿using Sandmod.Core.Client;
+using Sandmod.Permission.Target;
 
 namespace Sandmod.Permission.Provider;
 
@@ -17,5 +18,14 @@ public interface IOfflinePermissionProvider : IPermissionProvider
     /// <param name="offlineClient">Offline client to check</param>
     /// <param name="permission">Permission to check</param>
     /// <returns>If the <b><paramref name="permission"/></b> is granted, not granted or denied</returns>
-    Permission.Result CheckPermission(OfflineClient offlineClient, string permission);
+    Permission.Result CheckPermission(IOfflineClient offlineClient, string permission);
+
+    /// <summary>
+    /// Checks the permissions of the <b><param name="offlineClient"></param></b> for the <b><paramref name="permission"/></b> and the <b><paramref name="target"/></b>.
+    /// </summary>
+    /// <param name="offlineClient">Offline client to check</param>
+    /// <param name="permission">Permission to check</param>
+    /// <param name="target">Target to check the permissions for</param>
+    /// <returns>If the <b><paramref name="permission"/></b> is granted, not granted or denied</returns>
+    Permission.Result CheckPermission(IOfflineClient offlineClient, string permission, IPermissionTarget target);
 }

@@ -9,12 +9,13 @@ namespace Sandmod.Permission;
 public static class Permission
 {
     /// <summary>
-    /// Separator splitting permissions into parts.
+    /// Separator splitting permissions into sections.
     /// <code>
     /// example.permission => [example, permission]
     /// </code>
     /// </summary>
     public const string Separator = ".";
+
     /// <summary>
     /// Inverter inverting grant permissions to be excluded.
     /// <code>
@@ -30,28 +31,39 @@ public static class Permission
     public static class WildCard
     {
         /// <summary>
-        /// Wildcard matching a single permission part.
+        /// Wildcard matching a single permission section.
         /// <code>
         /// example._.permission == example.something.permission
         /// example._.permission != example.something.else.permission
         /// </code>
         /// </summary>
         public const string Single = "_";
+
         /// <summary>
-        /// Wildcard matching a permission part and all it's sub-parts.
+        /// Wildcard matching a permission section and all it's sub-sections.
         /// <code>
         /// example.permission.* == example.permission.something
         /// example.permission.* == example.permission.something.else
         /// </code>
         /// </summary>
         public const string Any = "*";
+
+        /// <summary>
+        /// Wildcard matching the first permission section which it typically a unique addon identifer.
+        /// <code>
+        /// ?.permission == addon.permission
+        /// ?.permission == permission
+        /// ?.permission != something.else.permission
+        /// </code>
+        /// </summary>
+        public const string Addon = "?";
     }
 
     public static bool IsInverted(string permission)
     {
         return permission.StartsWith(Inverter);
     }
-    
+
     /// <summary>
     /// Checks if the <b><paramref name="permission"/></b> includes the <b><paramref name="checkPermission"/></b>.<br/>
     /// This check is valid for normal and inverted permissions.
@@ -71,32 +83,47 @@ public static class Permission
 
         // Grant permission matches exactly with the check permission
         if (permission == checkPermission) return true;
-        
-        // Check parts split by the Permission.Separator
-        var checkParts = checkPermission.Split(Separator);
-        var grantParts = permission.Split(Separator);
-        for (var i = 0; i < checkParts.Length; i++)
+
+        // Check sections split by the Permission.Separator
+        var checkSections = checkPermission.Split(Separator).Where(section => section != "").ToArray();
+        var grantSections = permission.Split(Separator).Where(section => section != "").ToArray();
+        for (var i = 0; i < checkSections.Length; i++)
         {
-            // Check permission parts are longer
-            // The last inverted grant permission part includes itself and all sub-parts (similar as the Wildcard.ANY)
+            // Check permission sections are longer
+            // The last inverted grant permission section includes itself and all sub-sections (similar as the Wildcard.ANY)
             // For none inverted grant permissions this is not the case
-            if (grantParts.Length <= i) return inverted;
+            if (grantSections.Length <= i) return inverted;
 
-            var grantPart = grantParts[i];
-            // Grant permission includes this part and all sub-parts
+            var grantSection = grantSections[i];
+            var checkSection = checkSections[i];
+
+            // Grant permission includes any / no value for the first section
+            if (i == 0 && grantSections.Length >= 2 && grantSection == WildCard.Addon)
+            {
+                var nextGrantSection = grantSections[i + 1];
+                if (nextGrantSection != checkSection)
+                {
+                    checkSections = checkSections.Skip(1).ToArray();
+                }
+
+                grantSections = grantSections.Skip(1).ToArray();
+                i--;
+                continue;
+            }
+
+            // Grant permission includes this section and all sub-sections
             // For inverted grant permissions is kind of useless as it's the same as ending an inverted permission with a "._" but we check it anyway
-            if (grantPart == WildCard.Any) return true;
-            // Grant permission includes any value for this part
-            if (grantPart == WildCard.Single) continue;
+            if (grantSection == WildCard.Any) return true;
+            // Grant permission includes any value for this section
+            if (grantSection == WildCard.Single) continue;
 
-            var checkPart = checkParts[i];
-            // Grant permission part is the same as the check permission part
-            if (grantPart == checkPart) continue;
+            // Grant permission section is the same as the check permission section
+            if (grantSection == checkSection) continue;
 
-            // Grant permission part is different than the check permission part
+            // Grant permission section is different than the check permission section
             return false;
         }
-        
+
         // Logically unreachable as the exact match is already covered on top but we have to return something
         return false;
     }
@@ -137,10 +164,12 @@ public static class Permission
         /// Permission is not granted.
         /// </summary>
         NoGrant,
+
         /// <summary>
         /// Permission is granted.
         /// </summary>
         Grant,
+
         /// <summary>
         /// Permission is explicitly denied.
         /// </summary>
