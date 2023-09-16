@@ -124,8 +124,8 @@ public static class Permission
             return false;
         }
 
-        // Logically unreachable as the exact match is already covered on top but we have to return something
-        return false;
+        // Grant permission matches and is longer
+        return true;
     }
 
     /// <summary>

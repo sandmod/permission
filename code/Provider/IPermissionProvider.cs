@@ -16,6 +16,12 @@ namespace Sandmod.Permission.Provider;
 /// See <see cref="ProviderAttribute" /> for more information.
 /// </summary>
 /// <remarks>The <see cref="IPermissionProvider"/> is only used on the server.</remarks>
-public interface IPermissionProvider : IClientProvider<IReadOnlyCollection<IPermissionComponent>>
+public interface IPermissionProvider
 {
+    /// <summary>
+    /// Provides IPermissionComponents for a <see cref="IClient" />.
+    /// </summary>
+    /// <param name="client">Client to provide components for</param>
+    /// <returns>Provided components</returns>
+    IReadOnlyCollection<IPermissionComponent> Provide(IClient client);
 }
